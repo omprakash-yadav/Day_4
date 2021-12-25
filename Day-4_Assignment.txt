@@ -1,0 +1,93 @@
+1. How to compare two JSON have the same properties without order?
+var obj1 = { name: "Person 1", age: 5 };
+var obj2 = { age: 5, name: "Person 1" };
+console.log(obj1 == obj2)
+
+output=>false
+
+2. Use the rest countries API url -> https://restcountries.eu/rest/v2/all and display all the country
+flags in console
+
+
+var xhr = new XMLHttpRequest()
+xhr.onload = function () {
+    if (xhr.status >= 200 && xhr.status < 300) {
+        var t = JSON.parse(this.response);
+        for (let i = 0; i <= t.length; i++) {
+            console.log(`
+            contryname: ${t[i].name} 
+            countryFlag: ${t[i].flag} `)
+        }
+        console.log(t)
+    } else {
+        console.log("Data is not avalebal.")
+    }
+
+}
+xhr.open("GET", "https://raw.githubusercontent.com/rvsp/restcountries-json-data/master/res-countries.json")
+xhr.send();
+
+
+
+output=>
+
+
+countryAPI.js:6 
+            contryname: Afghanistan 
+            countryFlag: https://restcountries.eu/data/afg.svg 
+countryAPI.js:6 
+            contryname: Åland Islands 
+            countryFlag: https://restcountries.eu/data/ala.svg 
+
+
+
+
+3. Use the same rest countries and print all countries name, region, sub region and population
+
+
+var xhr = new XMLHttpRequest();
+xhr.onload = function () {
+    if (xhr.status >= 200 && this.status < 300) {
+        var t = JSON.parse(this.response);
+        for (let i = 0; i < t.length; i++) {
+            console.log(`
+            country:${t[i].name}
+            population:${t[i].population}
+            region:${t[i].region}
+            Subregion:${t[i].subregion}
+            currency:${t[i].currencies[0].code}
+            `)
+        }
+        //console.log(t)
+    } else {
+        console.log("Data is not avalable")
+    }
+
+}
+xhr.open("GET", "https://raw.githubusercontent.com/rvsp/restcountries-json-data/master/res-countries.json")
+xhr.send();
+
+output=>
+            country:Afghanistan
+            population:27657145
+            region:Asia
+            Subregion:Southern Asia
+            currency:AFN
+
+contryname: Afghanistan 
+            countryRegion: Asia 
+            country_subresion: undefined
+            country_population: 27657145
+            
+country_api_2.js:6 
+            contryname: Åland Islands 
+            countryRegion: Europe 
+            country_subresion: undefined
+            country_population: 28875
+            
+country_api_2.js:6 
+            contryname: Albania 
+            countryRegion: Europe 
+            country_subresion: undefined
+            country_population: 2886026
+            
